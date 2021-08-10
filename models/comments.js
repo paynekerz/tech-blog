@@ -1,27 +1,38 @@
-const { Model, DataTypes, UUIDV4 } = require('sequelize');
-const sequelize = require('../config/config');
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../config/connection");
 
 class Comment extends Model {}
 
 Comment.init(
   {
     id: {
-      type: DataTypes.UUID,
+      type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
-      defaultValue: UUIDV4,
+      autoIncrement: true,
     },
-    body: {
+    comment_body: {
       type: DataTypes.TEXT,
       allowNull: false,
+    },
+    date_posted: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      defaultValue: DataTypes.NOW,
+    },
+    post_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "post",
+        key: "id",
+      },
     },
   },
   {
     sequelize,
-    timestamps: true,
     freezeTableName: true,
     underscored: true,
-    modelName: 'comment',
+    modelName: "comment",
   }
 );
 

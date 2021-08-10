@@ -24,7 +24,7 @@ router.post("/", withAuth, async (req, res) => {
 router.put("/:id", withAuth, async (req, res) => {
   try {
     const postData = await Post.findByPk(req.params.id, {
-      //optional arguments here
+
     });
 
     if (!postData) {
